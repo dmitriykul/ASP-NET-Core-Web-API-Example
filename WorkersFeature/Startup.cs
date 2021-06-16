@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,23 @@ namespace WorkersFeature
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+
+            try
+            {
+                var options = optionsBuilder
+                    .UseSqlServer(connection)
+                    .Options;
+                using var db = new ApplicationContext(options);
+                db.Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
