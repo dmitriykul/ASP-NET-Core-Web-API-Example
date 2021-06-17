@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorkersFeature.Dtos;
+using WorkersFeature.Models;
 
 namespace WorkersFeature.Services.Interfaces
 {
@@ -39,5 +40,8 @@ namespace WorkersFeature.Services.Interfaces
         /// <param name="id">id навыка для удаления</param>
         /// <returns></returns>
         public Task<int> Delete(int id);
+
+        public List<SkillDto> ToListDto(List<Skill> skills);
+        public List<Skill> ToListModel(List<SkillDto> skills);
     }
 }

@@ -74,6 +74,28 @@ namespace WorkersFeature.Services
             return id;
         }
 
+        public List<SkillDto> ToListDto(List<Skill> skills)
+        {
+            var result = new List<SkillDto>();
+            foreach (Skill skill in skills)
+            {
+                result.Add(ToDto(skill));
+            }
+
+            return result;
+        }
+
+        public List<Skill> ToListModel(List<SkillDto> skills)
+        {
+            var result = new List<Skill>();
+            foreach (SkillDto skill in skills)
+            {
+                result.Add(ToModel(skill));
+            }
+
+            return result;
+        }
+
         private Skill ToModel(SkillDto skill)
         {
             return new Skill

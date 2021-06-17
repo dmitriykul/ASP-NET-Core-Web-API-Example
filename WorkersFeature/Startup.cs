@@ -53,6 +53,7 @@ namespace WorkersFeature
             });
 
             services.AddScoped<ISkillService, SkillService>();
+            services.AddScoped<IPersonService, PersonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
