@@ -16,7 +16,7 @@ namespace WorkersFeature
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Skill>()
-                .Property<long?>("PersonId");
+                .Property<long>("PersonId");
 
             modelBuilder.Entity<Skill>()
                 .HasOne(p => p.Person)

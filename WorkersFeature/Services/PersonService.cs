@@ -56,6 +56,12 @@ namespace WorkersFeature.Services
             {
                 existingPerson.Name = personDto.Name;
                 existingPerson.DisplayName = personDto.DisplayName;
+                
+                foreach (SkillDto skill in personDto.Skills)
+                {
+                    await _skillService.Edit(skill);
+                }
+                
                 _context.Persons.Update(existingPerson);
                 await _context.SaveChangesAsync();
             }
