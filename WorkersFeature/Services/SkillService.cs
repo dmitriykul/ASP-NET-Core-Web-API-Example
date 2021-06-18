@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WorkersFeature.Dtos;
 using WorkersFeature.Models;
 using WorkersFeature.Services.Interfaces;
@@ -10,10 +11,12 @@ namespace WorkersFeature.Services
     public class SkillService : ISkillService
     {
         private ApplicationContext _context;
+        private readonly ILogger<SkillService> _logger;
 
-        public SkillService(ApplicationContext context)
+        public SkillService(ApplicationContext context, ILogger<SkillService> logger)
         {
             _context = context;
+            _logger = logger;
         }
         
         public async Task<SkillDto> Create(SkillDto skill)
@@ -21,6 +24,7 @@ namespace WorkersFeature.Services
             var skillToAdd = ToModel(skill);
             await _context.Skills.AddAsync(skillToAdd);
             await _context.SaveChangesAsync();
+            _logger.LogInformation("Created new Skill object");
 
             return skill;
         }

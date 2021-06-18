@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using WorkersFeature.Dtos;
 using WorkersFeature.Services;
 using WorkersFeature.Services.Interfaces;
