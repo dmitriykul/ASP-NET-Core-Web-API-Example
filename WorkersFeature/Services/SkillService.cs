@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -19,14 +20,14 @@ namespace WorkersFeature.Services
             _logger = logger;
         }
         
-        public async Task<SkillDto> Create(SkillDto skill)
+        public async Task<int> Create(SkillDto skill)
         {
             var skillToAdd = ToModel(skill);
-            await _context.Skills.AddAsync(skillToAdd);
+            var skillAdded = await _context.Skills.AddAsync(skillToAdd);
             await _context.SaveChangesAsync();
             _logger.LogInformation("Created new Skill object");
 
-            return skill;
+            return Convert.ToInt32(skillAdded.Entity.Id);
         }
 
         public async Task<List<SkillDto>> Get()
