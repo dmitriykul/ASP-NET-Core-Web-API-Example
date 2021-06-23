@@ -63,11 +63,12 @@ namespace WorkersFeature.Controllers
         /// <param name="skill">dto модель навыка для обновления</param>
         /// <returns>Обновленный навык</returns>
         [HttpPut]
-        public async Task<SkillDto> Put(SkillDto skill)
+        public async Task<ActionResult<SkillDto>> Put(SkillDto skill)
         {
-            await _skillService.Edit(skill);
-
-            return skill;
+            var result = await _skillService.Edit(skill);
+            if (result == null) return NotFound();
+            
+            return Ok(result);
         }
         
         /// <summary>

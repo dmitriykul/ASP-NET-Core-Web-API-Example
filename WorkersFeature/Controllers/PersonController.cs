@@ -65,9 +65,12 @@ namespace WorkersFeature.Controllers
         /// <param name="person">Работник для обновления</param>
         /// <returns>PersonDto</returns>
         [HttpPut]
-        public async Task<PersonDto> Put(PersonDto person)
+        public async Task<ActionResult<PersonDto>> Put(PersonDto person)
         {
-            return await _personService.Edit(person);
+            var result = await _personService.Edit(person);
+            if (result == null) return NotFound();
+            
+            return Ok(result);
         }
 
         /// <summary>
