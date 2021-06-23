@@ -37,9 +37,12 @@ namespace WorkersFeature.Controllers
         /// </summary>
         /// <returns>Список из объектов PersonDto</returns>
         [HttpGet]
-        public async Task<List<PersonDto>> Get()
+        public async Task<ActionResult<List<PersonDto>>> Get()
         {
-            return await _personService.Get();
+            var result = await _personService.Get();
+            if (result.Count == 0) return NotFound();
+            
+            return result;
         }
         
         /// <summary>
@@ -48,9 +51,12 @@ namespace WorkersFeature.Controllers
         /// <param name="id">id работника</param>
         /// <returns>PersonDto</returns>
         [HttpGet("{id}")]
-        public async Task<PersonDto> Get(int id)
+        public async Task<ActionResult<PersonDto>> Get(int id)
         {
-            return await _personService.Get(id);
+            var result = await _personService.Get(id);
+            if (result == null) return NotFound();
+
+            return result;
         }
 
         /// <summary>
@@ -70,9 +76,12 @@ namespace WorkersFeature.Controllers
         /// <param name="id">id работника для удаления</param>
         /// <returns>id удалённого работника</returns>
         [HttpDelete("{id}")]
-        public async Task<int> Delete(int id)
+        public async Task<ActionResult<int>> Delete(int id)
         {
-            return await _personService.Delete(id);
+            var idDeleted = await _personService.Delete(id);
+            if (idDeleted == 0) return NotFound();
+            
+            return idDeleted;
         }
     }
 }

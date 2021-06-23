@@ -20,12 +20,9 @@ namespace WorkersFeature
 {
     public class Startup
     {
-        private readonly ILogger<Startup> _logger;
-        
-        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -48,7 +45,7 @@ namespace WorkersFeature
             }
             catch (Exception ex)
             {
-                _logger.LogInformation($"Error when trying to connect to the database or applying migration {ex.Message}");
+                
             }
 
             services.AddMvc();
