@@ -33,11 +33,8 @@ namespace WorkersFeature.Controllers
         /// </summary>
         /// <returns>Список навыков</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SkillDto>>> Get()
+        public async Task<IEnumerable<SkillDto>> Get()
         {
-            var skills = await _skillService.Get();
-            if (skills.Count == 0) return NotFound();
-            
             return await _skillService.Get();
         }
         

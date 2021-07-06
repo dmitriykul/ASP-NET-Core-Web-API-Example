@@ -35,12 +35,9 @@ namespace WorkersFeature.Controllers
         /// </summary>
         /// <returns>Список из объектов PersonDto</returns>
         [HttpGet]
-        public async Task<ActionResult<List<PersonDto>>> Get()
+        public async Task<List<PersonDto>> Get()
         {
-            var result = await _personService.Get();
-            if (result.Count == 0) return NotFound();
-            
-            return result;
+            return await _personService.Get();
         }
         
         /// <summary>
