@@ -25,11 +25,9 @@ namespace WorkersFeature.Controllers
         /// <param name="person">Объект PersonDto</param>
         /// <returns>PersonDto</returns>
         [HttpPost]
-        public async Task<PersonDto> Post(PersonDto person)
+        public async Task<int> Post(PersonLessInfoDto person)
         {
-            await _personService.Create(person);
-
-            return person;
+            return await _personService.Create(person);
         }
         
         /// <summary>

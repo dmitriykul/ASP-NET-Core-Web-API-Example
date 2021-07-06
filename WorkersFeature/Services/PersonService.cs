@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -23,9 +24,14 @@ namespace WorkersFeature.Services
             _logger = logger;
         }
         
-        public async Task<int> Create(PersonDto person)
+        public async Task<int> Create(PersonLessInfoDto person)
         {
-            var personToAdd = ToModel(person);
+            var personToAdd = ToModel(new PersonDto
+            {
+                Name = person.Name,
+                DisplayName = person.DisplayName,
+                Skills = person.Skills
+            });
             var personAdded = await _context.Persons.AddAsync(personToAdd);
             await _context.SaveChangesAsync();
             _logger.LogInformation("Created new Person object");
@@ -36,14 +42,8 @@ namespace WorkersFeature.Services
         public async Task<List<PersonDto>> Get()
         {
             var persons = await _context.Persons.Include(s => s.Skills).ToListAsync();
-            var result = new List<PersonDto>();
 
-            foreach (Person person in persons)
-            {
-                result.Add(ToDto(person));
-            }
-
-            return result;
+            return persons.Select(ToDto).ToList();
         }
 
         public async Task<PersonDto> Get(int id)

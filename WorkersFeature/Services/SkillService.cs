@@ -20,9 +20,14 @@ namespace WorkersFeature.Services
             _logger = logger;
         }
         
-        public async Task<int> Create(SkillDto skill)
+        public async Task<int> Create(SkillLessInfoDto skill)
         {
-            var skillToAdd = ToModel(skill);
+            var skillToAdd = ToModel(new SkillDto
+            {
+                Name = skill.Name,
+                Level = skill.Level,
+                PersonId = skill.PersonId
+            });
             var skillAdded = await _context.Skills.AddAsync(skillToAdd);
             await _context.SaveChangesAsync();
             _logger.LogInformation("Created new Skill object");

@@ -11,7 +11,7 @@ namespace WorkersFeature.Services.Interfaces
         /// </summary>
         /// <param name="person">Dto модель Person для создания</param>
         /// <returns>Созданный Person</returns>
-        public Task<int> Create(PersonDto person);
+        public Task<int> Create(PersonLessInfoDto person);
         
         /// <summary>
         /// Получить список всех Person

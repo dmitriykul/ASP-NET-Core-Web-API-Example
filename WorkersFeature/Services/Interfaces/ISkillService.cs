@@ -12,7 +12,7 @@ namespace WorkersFeature.Services.Interfaces
         /// </summary>
         /// <param name="skill">Навык для создания</param>
         /// <returns>Созданный навык</returns>
-        public Task<int> Create(SkillDto skill);
+        public Task<int> Create(SkillLessInfoDto skill);
         
         /// <summary>
         /// Возвращает список всех навыков

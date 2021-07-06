@@ -23,11 +23,9 @@ namespace WorkersFeature.Controllers
         /// <param name="skill">Dto модель навыка для добавления</param>
         /// <returns>Добавленный навык</returns>
         [HttpPost]
-        public async Task<SkillDto> Post(SkillDto skill)
+        public async Task<int> Post(SkillLessInfoDto skill)
         {
-            await _skillService.Create(skill);
-
-            return skill;
+            return await _skillService.Create(skill);
         }
         
         /// <summary>
