@@ -34,19 +34,12 @@ namespace WorkersFeature
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-
-            try
-            {
-                var options = optionsBuilder
-                    .UseSqlServer(connection)
-                    .Options;
-                using var db = new ApplicationContext(options);
-                db.Database.Migrate();
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            
+            var options = optionsBuilder
+                .UseSqlServer(connection)
+                .Options;
+            using var db = new ApplicationContext(options);
+            db.Database.Migrate();
 
             services.AddMvc();
             services.AddControllers();
